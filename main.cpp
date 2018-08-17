@@ -6,7 +6,11 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
-    DBService db(DBService::QODBC, "testDB", "80.211.241.238", "", "solarhome", "Wind2Forest");
+    DBService db;
+    if (!db.setConnection(DBService::QODBC, "testDB", "80.211.241.238", "", "solarhome", "Wind2Forest")) {
+        qDebug() << "DB isn't set!";
+        return a.exec();
+    }
     QSqlQuery query = db.selectAllData("");
     QSqlRecord rec = query.record();
     QStringList list;

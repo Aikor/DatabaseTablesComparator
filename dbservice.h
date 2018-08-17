@@ -7,16 +7,14 @@ class DBService
 {
 public:
     enum DBDriver { QMYSQL = 0, QODBC};
-    explicit DBService(DBDriver driver, QString connectionName, QString hostName, QString dbName, QString username, QString password);
+    explicit DBService();
     ~DBService();
 
-    QSqlQuery selectAllData(QString &table) const;
-
-    bool getIsOpen() const;
+    bool setConnection(DBDriver driver, QString connectionName, QString hostName, QString dbName, QString username, QString password);
+    QSqlQuery selectAllData(QString table) const;
 
 private:
     QSqlDatabase m_dbConnection;
-    bool m_isOpen;
     QString dbDriverToString(DBDriver &driver);
 };
 
